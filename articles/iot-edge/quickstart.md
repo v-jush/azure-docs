@@ -170,7 +170,7 @@ Use PowerShell to download and install the IoT Edge runtime. Use the device conn
 
 3. The **Deploy-IoTEdge** command checks that your Windows machine is on a supported version, turns on the containers feature, downloads the moby runtime, and then downloads the IoT Edge runtime.
 
-   ```
+   ```powershell
    # remote powershell session to IoTCore ARM32 device
    . {Invoke-WebRequest -useb aka.ms/iotedge-winarm32} | Invoke-Expression; `
    Deploy-IoTEdge -ContainerOs Windows
