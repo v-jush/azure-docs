@@ -132,11 +132,14 @@ edgeshared.azurecr.io/microsoft/azureiotedge-simulated-temperature-sensor:201905
 1. Go to portal, navigate to the device details, click Set Modules
    ![Open Set modules from device details page](./media/quickstart/devicedetail.png)
    
-2. In the set modules page, type in the user name, password and server for the preview registry (EdgeShared)
+2. In the set modules page, type in the user name, password and server for the preview registry (EdgeShared). Click the image to see its original content.
    ![set up credentials to pull images from edgeshared.azurecr.io](./media/quickstart/setmodules-cred.png)
    
-3. Click on "Configure Advanced Edge Runtime Settings", and set up the edgeAgent and edgeHub to the preview modules accordingly, edgeshared.azurecr.io/microsoft/azureiotedge-agent:20190508.3-windows-arm32v7
+3. Click on "Configure Advanced Edge Runtime Settings", and set up the edgeAgent and edgeHub to the preview modules accordingly. Click the image to see its original content.
+
+edgeshared.azurecr.io/microsoft/azureiotedge-agent:20190508.3-windows-arm32v7
 edgeshared.azurecr.io/microsoft/azureiotedge-hub:20190508.3-windows-arm32v7
+
    ![use preview agent and hub modules](./media/quickstart/advanced.png)
 
 ## Install and start the IoT Edge runtime
