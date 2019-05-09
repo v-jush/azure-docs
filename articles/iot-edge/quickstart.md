@@ -159,16 +159,14 @@ The steps in this section all take place on your IoT Edge device, so you want to
 
 ### Install and configure the IoT Edge service
 
-**Note for ARM32 preview**
-aka.ms/iotedge-win in below powershell snippets has been replaced with aka.ms/iotedge-winarm32, so the Windows ARM32 cab for iotedge can be installed on the IoTCore ARM device
-
 Use PowerShell to download and install the IoT Edge runtime. Use the device connection string that you retrieved from IoT Hub to configure your device.
 
-1. If you haven't already, follow the steps in [Register a new Azure IoT Edge device](how-to-register-device-portal.md) to register your device and retrieve the device connection string. 
+1. Open powershell on desktop, enter ps session to the iotcore device, password is `p@ssw0rd`
+```powershell
+Enter-PSSession -ComputerName <IP address> -Credential <same IP address>\Administrator
+```
 
-2. Run PowerShell as an administrator.
-
-3. The **Deploy-IoTEdge** command checks that your Windows machine is on a supported version, turns on the containers feature, downloads the moby runtime, and then downloads the IoT Edge runtime.
+2. The **Deploy-IoTEdge** command checks that your Windows machine is on a supported version, turns on the containers feature, downloads the moby runtime, and then downloads the IoT Edge runtime.
 
    ```powershell
    # remote powershell session to IoTCore ARM32 device
@@ -176,11 +174,11 @@ Use PowerShell to download and install the IoT Edge runtime. Use the device conn
    Deploy-IoTEdge -ContainerOs Windows
    ```
 
-4. Your machine may restart automatically. If you are prompted by the Deploy-IoTEdge command to reboot, do so now. 
+3. Your machine may restart automatically. If you are prompted by the Deploy-IoTEdge command to reboot, do so now. 
 
-5. Run PowerShell as an administrator again.
+4. Run PowerShell as an administrator again.
 
-6. The **Initialize-IoTEdge** command configures the IoT Edge runtime on your machine. The command defaults to manual provisioning with Windows containers. 
+5. The **Initialize-IoTEdge** command configures the IoT Edge runtime on your machine. The command defaults to manual provisioning with Windows containers. 
 
    ```powershell
    # remote powershell session to IoTCore ARM32 device
@@ -188,7 +186,7 @@ Use PowerShell to download and install the IoT Edge runtime. Use the device conn
    Initialize-IoTEdge -AgentImage 'edgeshared.azurecr.io/microsoft/azureiotedge-agent:20190508.3-windows-arm32v7' -Username 'd3e6e3bc-2e38-4887-9073-2cf796462b15' -Password $(ConvertTo-SecureString '71181f94-a9b9-4b98-96a8-01c4ae8dff94' -AsPlainText -Force)
    ```
 
-7. When prompted for a **DeviceConnectionString**, provide the string that you copied in the previous section. Don't include quotes around the connection string.
+6. When prompted for a **DeviceConnectionString**, provide the string that you copied in the previous section. Don't include quotes around the connection string.
 
 ### View the IoT Edge runtime status
 
