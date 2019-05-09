@@ -113,6 +113,26 @@ Since IoT Edge devices behave and can be managed differently than typical IoT de
 3. Copy the value of the `connectionString` key from the JSON output and save it. This value is the device connection string. You'll use this connection string to configure the IoT Edge runtime in the next section.
 
    ![Retrieve connection string from CLI output](./media/quickstart/retrieve-connection-string.png)
+   
+### Special set up for Windows ARM32 preview
+When the edge device has been created, by default it points to mcr.microsoft.com/azureiotedge-hub:1.0 to pull both the agent and the hub modules. Since Windows ARM32 is still not public yet, there is no modules for Windows ARM32 from MCR, so we need to set it to pull from the preview registry.
+
+4 preview modules have been provided for the ARM preview, use username `d3e6e3bc-2e38-4887-9073-2cf796462b15` and password `71181f94-a9b9-4b98-96a8-01c4ae8dff94` to log into the container registry edgeshared.azurecr.io
+
+edgeshared.azurecr.io/microsoft/azureiotedge-agent:20190508.3-windows-arm32v7
+edgeshared.azurecr.io/microsoft/azureiotedge-hub:20190508.3-windows-arm32v7
+edgeshared.azurecr.io/microsoft/azureiotedge-diagnostics:20190508.3-windows-arm32v7
+edgeshared.azurecr.io/microsoft/azureiotedge-simulated-temperature-sensor:20190508.3-windows-arm32v7
+
+1. Go to portal, navigate to the device details, click Set Modules
+   ![Open Set modules from device details page](./media/quickstart/devicedetail.png)
+   
+2. In the set modules page, type in the user name, password and server for the preview registry (EdgeShared)
+   ![set up credentials to pull images from edgeshared.azurecr.io](./media/quickstart/setmodules-cred.png)
+   
+3. Click on "Configure Advanced Edge Runtime Settings", and set up the edgeAgent and edgeHub to the preview modules accordingly, edgeshared.azurecr.io/microsoft/azureiotedge-agent:20190508.3-windows-arm32v7
+edgeshared.azurecr.io/microsoft/azureiotedge-hub:20190508.3-windows-arm32v7
+   ![use preview agent and hub modules](./media/quickstart/advanced.png)
 
 ## Install and start the IoT Edge runtime
 
@@ -133,12 +153,6 @@ The steps in this section all take place on your IoT Edge device, so you want to
 
 **Note for ARM32 preview**
 1. Please replace aka.ms/iotedge-win to aka.ms/iotedge-winarm32 when using IotEdge physical devices, the IoTEdge runtime and docker for the preview will be downloaded and installed for ARM
-2. 4 modules are also provided for the ARM preview, you should have the password already to connect to this registry, with username "EdgeShared"
-
-edgeshared.azurecr.io/microsoft/azureiotedge-agent:20190508.3-windows-arm32v7
-edgeshared.azurecr.io/microsoft/azureiotedge-hub:20190508.3-windows-arm32v7
-edgeshared.azurecr.io/microsoft/azureiotedge-diagnostics:20190508.3-windows-arm32v7
-edgeshared.azurecr.io/microsoft/azureiotedge-simulated-temperature-sensor:20190508.3-windows-arm32v7
 
 Use PowerShell to download and install the IoT Edge runtime. Use the device connection string that you retrieved from IoT Hub to configure your device.
 
@@ -147,6 +161,9 @@ Use PowerShell to download and install the IoT Edge runtime. Use the device conn
 2. Run PowerShell as an administrator.
 
 3. The **Deploy-IoTEdge** command checks that your Windows machine is on a supported version, turns on the containers feature, downloads the moby runtime, and then downloads the IoT Edge runtime.
+
+   >[!Windows ARM32 Preview]
+   >Use aka.ms/iotedge-winarm32 if you're using ARM32 IoTCore
 
    ```powershell
    . {Invoke-WebRequest -useb aka.ms/iotedge-win} | Invoke-Expression; `
@@ -222,13 +239,16 @@ iotedge list
 
    ![View three modules on your device](./media/quickstart/iotedge-list-2.png)
 
-View the messages being sent from the temperature sensor module to the cloud.
+View the messages being sent from the temperature sensor module to the cloud. 
+
+   >[!TIP]
+   Replace SimulatedTemperatureSensor with the module name you put in the portal when you added the module.
 
 ```powershell
 iotedge logs SimulatedTemperatureSensor -f
 ```
 
-To deploy the azureiotedge-diagnostics module and run on your Windows ARM32 device, you can either do it form the hub portal, or pull the module with docker
+To deploy the azureiotedge-diagnostics module and run on your Windows ARM32 device, you can either do it from the hub portal in the "Set modules" page, or pull the module with docker
 
 ```powershell 
 docker  -H npipe:////./pipe/iotedge_moby_engine login edgeshared.azurecr.io --username d3e6e3bc-2e38-4887-9073-2cf796462b15 --password 71181f94-a9b9-4b98-96a8-01c4ae8dff94
