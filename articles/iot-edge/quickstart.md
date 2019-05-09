@@ -253,12 +253,11 @@ View the messages being sent from the temperature sensor module to the cloud.
 iotedge logs SimulatedTemperatureSensor -f
 ```
 
-Deploy the azureiotedge-diagnostics module and run on your Windows ARM32 device, you can either do it from the hub portal in the "Set modules" page, or pull the module with docker
+Pull azureiotedge-diagnostics module and run on your Windows ARM32 device, you need to first login docker registry (EdgeShared), then run iotedge check which would pull the module
 
 ```powershell
 # remote powershell session to IoTCore ARM32 device
-docker  -H npipe:////./pipe/iotedge_moby_engine login edgeshared.azurecr.io --username d3e6e3bc-2e38-4887-9073-2cf796462b15 --password 71181f94-a9b9-4b98-96a8-01c4ae8dff94
-docker  -H npipe:////./pipe/iotedge_moby_engine pull edgeshared.azurecr.io/microsoft/azureiotedge-diagnostics:20190508.3-windows-arm32v7
+docker -H npipe:////./pipe/iotedge_moby_engine login edgeshared.azurecr.io --username d3e6e3bc-2e38-4887-9073-2cf796462b15 --password 71181f94-a9b9-4b98-96a8-01c4ae8dff94
 iotedge check -c C:\data\ProgramData\iotedge\config.yaml --diagnostics-image-name edgeshared.azurecr.io/microsoft/azureiotedge-diagnostics:20190508.3-windows-arm32v7
 ```
 
