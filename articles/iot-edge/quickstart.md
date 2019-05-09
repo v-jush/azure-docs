@@ -65,6 +65,8 @@ IoT Edge device:
 
   Open this file with Remote Desktop Connection to connect to your Windows virtual machine using the administrator name and password you specified with the `az vm create` command.
 
+* For ARM32, please flash and run Windows IoTCore 1809 release on an ARM device, e.g. raspberry pi or hummingboard. Once IoTCore is up and running, follow this doc [Using PowerShell for Windows IoT](https://docs.microsoft.com/en-us/windows/iot-core/connect-your-device/powershell) to enable remote powershell session. Whenever powershell is used below to run commands natively on the client device, replace it with the remote powershell session for IoTCore environment.
+
 
 > [!NOTE]
 > This quickstart uses a Windows desktop virtual machine for simplicity. For information about which Windows operating systems are generally available for production scenarios, see [Azure IoT Edge supported systems](support.md).
@@ -129,6 +131,15 @@ The steps in this section all take place on your IoT Edge device, so you want to
 
 ### Install and configure the IoT Edge service
 
+**Note for ARM32 preview**
+1. Please replace aka.ms/iotedge-win to aka.ms/iotedge-winarm32 when using IotEdge physical devices, the IoTEdge runtime and docker for the preview will be downloaded and installed for ARM
+2. 4 modules are also provided for the ARM preview, you should have the password already to connect to this registry, with username "EdgeShared"
+
+edgeshared.azurecr.io/microsoft/azureiotedge-agent:20190508.3-windows-arm32v7
+edgeshared.azurecr.io/microsoft/azureiotedge-hub:20190508.3-windows-arm32v7
+edgeshared.azurecr.io/microsoft/azureiotedge-diagnostics:20190508.3-windows-arm32v7
+edgeshared.azurecr.io/microsoft/azureiotedge-simulated-temperature-sensor:20190508.3-windows-arm32v7
+
 Use PowerShell to download and install the IoT Edge runtime. Use the device connection string that you retrieved from IoT Hub to configure your device.
 
 1. If you haven't already, follow the steps in [Register a new Azure IoT Edge device](how-to-register-device-portal.md) to register your device and retrieve the device connection string. 
@@ -151,6 +162,13 @@ Use PowerShell to download and install the IoT Edge runtime. Use the device conn
    ```powershell
    . {Invoke-WebRequest -useb aka.ms/iotedge-win} | Invoke-Expression; `
    Initialize-IoTEdge -ContainerOs Windows
+   ```
+
+   For **IoTCore ARM32** preview, extra arguments are needed in order to properly initialize edgeAgent for ARM
+
+   ```powershell
+   . {Invoke-WebRequest -useb aka.ms/iotedge-winarm32} | Invoke-Expression; `
+   Initialize-IoTEdge -AgentImage 'edgeshared.azurecr.io/microsoft/azureiotedge-agent:20190508.3-windows-arm32v7' -Username "EdgeShared" -Password $(ConvertTo-SecureString '<replace with the real password>' -AsPlainText -Force)
    ```
 
 7. When prompted for a **DeviceConnectionString**, provide the string that you copied in the previous section. Don't include quotes around the connection string.
@@ -208,6 +226,14 @@ View the messages being sent from the temperature sensor module to the cloud.
 
 ```powershell
 iotedge logs SimulatedTemperatureSensor -f
+```
+
+To deploy the azureiotedge-diagnostics module and run on your Windows ARM32 device, you can either do it form the hub portal, or pull the module with docker
+
+```powershell 
+docker  -H npipe:////./pipe/iotedge_moby_engine login edgeshared.azurecr.io --username d3e6e3bc-2e38-4887-9073-2cf796462b15 --password 71181f94-a9b9-4b98-96a8-01c4ae8dff94
+docker  -H npipe:////./pipe/iotedge_moby_engine pull edgeshared.azurecr.io/microsoft/azureiotedge-diagnostics:20190508.3-windows-arm32v7
+iotedge check -c C:\data\ProgramData\iotedge\config.yaml --diagnostics-image-name edgeshared.azurecr.io/microsoft/azureiotedge-diagnostics:20190508.3-windows-arm32v7
 ```
 
    >[!TIP]
