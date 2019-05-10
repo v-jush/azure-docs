@@ -1,17 +1,3 @@
----
-title: Quickstart create an Azure IoT Edge device on Windows | Microsoft Docs 
-description: In this quickstart, learn how to create an IoT Edge device and then deploy prebuilt code remotely from the Azure portal. 
-author: kgremban
-manager: philmea
-ms.author: kgremban
-ms.date: 03/19/2019
-ms.topic: quickstart
-ms.service: iot-edge
-services: iot-edge
-ms.custom: "mvc, seodec18"
-
----
-
 # Azure IoT Edge Windows 10 IoTCore ARM32 Preview
 This document is for Azure IoT Edge Windows 10 IoTCore ARM32 Preview, the content is based on the original [iotedge quick start guide](https://docs.microsoft.com/en-us/azure/iot-edge/quickstart) and has been updated to accomodate  Windows IoTCore ARM32 specfic instructions and information. If you're working on other Windows platforms, please refer to the original document.
 
@@ -202,12 +188,14 @@ It may take a few minutes for the installation to complete and the IoT Edge agen
 
 Your IoT Edge device is now configured. It's ready to run cloud-deployed modules.
 
-## Deploy a module
+## Deploy Simulated Temperature Sensor module
 
 Manage your Azure IoT Edge device from the cloud to deploy a module that sends telemetry data to IoT Hub.
 ![Diagram - deploy module from cloud to device](./media/quickstart/deploy-module.png)
 
-[!INCLUDE [iot-edge-deploy-module](../../includes/iot-edge-deploy-module.md)]
+This module is in the marketplace and can be downaloded and installed following this document, [iot-edge-deploy-module](../../includes/iot-edge-deploy-module.md)]. However for Windows ARM32 preview, the module is not available in the marketplace, so you need to manually install it and point to the preview registry edgeshared.azurecr.io/microsoft/azureiotedge-simulated-temperature-sensor:20190508.3-windows-arm32v7
+
+![Manually add the preview temperature sensor module](./media/quickstart/tempsensor.png)
 
 ## View generated data
 
