@@ -19,7 +19,7 @@ This document is for Azure IoT Edge Windows 10 IoTCore ARM32 Preview, the conten
 
 # Quickstart: Deploy your first IoT Edge module from the Azure portal to a Windows device
 
-In this quickstart, use the Azure IoT Edge cloud interface to deploy prebuilt code remotely to an IoT Edge device. To accomplish this task, first create and configure a Windows virtual machine to work as an IoT Edge device, then you can deploy a module to it.
+In this quickstart, use the Azure IoT Edge cloud interface to deploy prebuilt code remotely to an IoT Edge device. To accomplish this task, first follow [IoTCore quick start](https://docs.microsoft.com/en-us/windows/iot-core/tutorials/quickstarter/devicesetup) to set up a device with IoTCore 1809 release, then you can deploy IoTEdge onto it.
 
 In this quickstart you learn how to:
 
@@ -56,25 +56,8 @@ Cloud resources:
 
 IoT Edge device:
 
-* A Windows virtual machine to act as your IoT Edge device. You can create this virtual machine using the following command, replacing *{password}* with a secure password:
-
-  ```azurecli-interactive
-  az vm create --resource-group IoTEdgeResources --name EdgeVM --image MicrosoftWindowsDesktop:Windows-10:rs5-pro:latest --admin-username azureuser --admin-password {password} --size Standard_DS1_v2
-  ```
-
-  It may take a few minutes to create and start the new virtual machine. You can then download an RDP file for use when connecting to your virtual machine:
-
-  1. Navigate to your new Windows virtual machine in the Azure portal.
-  1. Select **Connect**.
-  1. On the **RDP** tab, select **Download RDP File**.
-
-  Open this file with Remote Desktop Connection to connect to your Windows virtual machine using the administrator name and password you specified with the `az vm create` command.
-
-* Windows IoTCore ARM32, flash and run Windows IoTCore 1809 release on an ARM device, e.g. raspberry pi or hummingboard. Once IoTCore is up and running, follow this doc [Using PowerShell for Windows IoT](https://docs.microsoft.com/en-us/windows/iot-core/connect-your-device/powershell) to enable remote powershell session. Whenever powershell is used below to run commands natively on the client device, replace it with the remote powershell session for IoTCore environment.
-
-
-> [!NOTE]
-> This quickstart uses a Windows desktop virtual machine for simplicity. For information about which Windows operating systems are generally available for production scenarios, see [Azure IoT Edge supported systems](support.md).
+* Follow [IoTCore quick start](https://docs.microsoft.com/en-us/windows/iot-core/tutorials/quickstarter/devicesetup) to set up a device with IoTCore 1809 release
+* Then set up remote powershell session [Using PowerShell for Windows IoT](https://docs.microsoft.com/en-us/windows/iot-core/connect-your-device/powershell). ps session will be used as the only way to run any scripts, commands on the IoTCore device
 
 ## Create an IoT hub
 
@@ -119,8 +102,8 @@ Since IoT Edge devices behave and can be managed differently than typical IoT de
 
    ![Retrieve connection string from CLI output](./media/quickstart/retrieve-connection-string.png)
    
-### Special set up for Windows ARM32 preview
-When the edge device has been created, by default it points to mcr.microsoft.com/azureiotedge-hub:1.0 to pull both the agent and the hub modules. Since Windows ARM32 is still not public yet, there is no modules for Windows ARM32 from MCR, so we need to set it to pull from the preview registry.
+## Set Modules for IoTCore ARM32 Preview on the Portal
+After the edge device has been created, by default it points to mcr.microsoft.com/azureiotedge-hub:1.0 to pull both the agent and the hub modules. Since Windows ARM32 is still not public yet, there is no modules for Windows ARM32 from mcr, so we need to set it to pull from the preview registry.
 
 4 preview modules have been provided for the Windows IoTCore ARM32 preview, use username `d3e6e3bc-2e38-4887-9073-2cf796462b15` and password `71181f94-a9b9-4b98-96a8-01c4ae8dff94` to log into the container registry edgeshared.azurecr.io
 
@@ -132,7 +115,7 @@ edgeshared.azurecr.io/microsoft/azureiotedge-simulated-temperature-sensor:201905
 1. Go to portal, navigate to the device details, click Set Modules
    ![Open Set modules from device details page](./media/quickstart/devicedetail.png)
    
-2. In the set modules page, type in the user name, password and server for the preview registry (EdgeShared). Click the image to see its original content.
+2. In the set modules page, type in the user name, password and server for the preview registry (edgeshared). Click the image to see its original content.
    ![set up credentials to pull images from edgeshared.azurecr.io](./media/quickstart/setmodules-cred.png)
    
 3. Click on "Configure Advanced Edge Runtime Settings", and set up the edgeAgent and edgeHub to the preview modules accordingly. Click the image to see its original content.
@@ -155,7 +138,7 @@ During the runtime installation, you're asked for a device connection string. Us
 
 ### Connect to your IoT Edge device
 
-The steps in this section all take place on your IoT Edge device, so you want to connect to that virtual machine now via remote desktop.
+You should have the IoTCore device connected to the network and you have its IP address for remote PS session
 
 ### Install and configure the IoT Edge service
 
@@ -176,9 +159,9 @@ Enter-PSSession -ComputerName <IP address> -Credential <same IP address>\Adminis
 
 3. Your machine may restart automatically. If you are prompted by the Deploy-IoTEdge command to reboot, do so now. 
 
-4. Run PowerShell as an administrator again.
+4. After reboot, reconnect to the PS session
 
-5. The **Initialize-IoTEdge** command configures the IoT Edge runtime on your machine. The command defaults to manual provisioning with Windows containers. 
+5. The **Initialize-IoTEdge** command configures the IoT Edge runtime on your device. The command defaults to manual provisioning with Windows containers. 
 
    ```powershell
    # remote powershell session to IoTCore ARM32 device
@@ -251,7 +234,7 @@ View the messages being sent from the temperature sensor module to the cloud.
 iotedge logs SimulatedTemperatureSensor -f
 ```
 
-Pull azureiotedge-diagnostics module and run on your Windows ARM32 device, you need to first login docker registry (EdgeShared), then run iotedge check which would pull the module
+Pull azureiotedge-diagnostics module and run on your Windows ARM32 device, you need to first login docker registry (edgeshared), then run iotedge check which would pull the module and run the diagnostics
 
 ```powershell
 # remote powershell session to IoTCore ARM32 device
