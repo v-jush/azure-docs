@@ -193,7 +193,7 @@ Your IoT Edge device is now configured. It's ready to run cloud-deployed modules
 Manage your Azure IoT Edge device from the cloud to deploy a module that sends telemetry data to IoT Hub.
 ![Diagram - deploy module from cloud to device](./media/quickstart/deploy-module.png)
 
-This module is in the marketplace and can be downaloded and installed following this document, [iot-edge-deploy-module](../../includes/iot-edge-deploy-module.md)]. However for Windows ARM32 preview, the module is not available in the marketplace, so you need to manually install it and point to the preview registry edgeshared.azurecr.io/microsoft/azureiotedge-simulated-temperature-sensor:20190508.3-windows-arm32v7
+This module is in the marketplace and can be downaloded and installed following this document, [iot-edge-deploy-module](../../includes/iot-edge-deploy-module.md). However for Windows ARM32 preview, the module is not available in the marketplace, so you need to manually install it and point to the preview registry edgeshared.azurecr.io/microsoft/azureiotedge-simulated-temperature-sensor:20190508.3-windows-arm32v7
 
 ![Manually add the preview temperature sensor module](./media/quickstart/tempsensor.png)
 
@@ -214,13 +214,18 @@ iotedge list
 
 View the messages being sent from the temperature sensor module to the cloud. 
 
-   >[!TIP]
-   Replace SimulatedTemperatureSensor with the module name you put in the portal when you added the module.
-
 ```powershell
 # remote powershell session to IoTCore ARM32 device
 iotedge logs SimulatedTemperatureSensor -f
 ```
+
+   >[!TIP]
+   >IoT Edge commands are case-sensitive when referring to module names.
+
+   ![View the data from your module](./media/quickstart/tempsensor-remoteps.png)
+
+You can also watch the messages arrive at your IoT hub by using the [Azure IoT Hub Toolkit extension for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.azure-iot-toolkit) (formerly Azure IoT Toolkit extension).
+
 ## Run AzureIoTEdge-Diagnostics on your iot device
 
 Pull azureiotedge-diagnostics module and run on your Windows ARM32 device, you need to first login docker registry (edgeshared), then run iotedge check which would pull the module and run the diagnostics. The diagnostics will print out system check results for you to review in multiple areas.
@@ -231,12 +236,7 @@ docker -H npipe:////./pipe/iotedge_moby_engine login edgeshared.azurecr.io --use
 iotedge check -c C:\data\ProgramData\iotedge\config.yaml --diagnostics-image-name edgeshared.azurecr.io/microsoft/azureiotedge-diagnostics:20190508.3-windows-arm32v7
 ```
 
-   >[!TIP]
-   >IoT Edge commands are case-sensitive when referring to module names.
-
-   ![View the data from your module](./media/quickstart/iotedge-logs.png)
-
-You can also watch the messages arrive at your IoT hub by using the [Azure IoT Hub Toolkit extension for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.azure-iot-toolkit) (formerly Azure IoT Toolkit extension).
+![azureiotedge-diagnostics output](./media/quickstart/azureiotedge-diagnostics.png)
 
 ## Clean up resources
 
