@@ -233,8 +233,9 @@ View the messages being sent from the temperature sensor module to the cloud.
 # remote powershell session to IoTCore ARM32 device
 iotedge logs SimulatedTemperatureSensor -f
 ```
+## Run AzureIoTEdge-Diagnostics on your iot device
 
-Pull azureiotedge-diagnostics module and run on your Windows ARM32 device, you need to first login docker registry (edgeshared), then run iotedge check which would pull the module and run the diagnostics
+Pull azureiotedge-diagnostics module and run on your Windows ARM32 device, you need to first login docker registry (edgeshared), then run iotedge check which would pull the module and run the diagnostics. The diagnostics will print out system check results for you to review in multiple areas.
 
 ```powershell
 # remote powershell session to IoTCore ARM32 device
