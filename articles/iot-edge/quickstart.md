@@ -145,9 +145,9 @@ You should have the IoTCore device connected to the network and you have its IP 
 Use PowerShell to download and install the IoT Edge runtime. Use the device connection string that you retrieved from IoT Hub to configure your device.
 
 1. Open powershell on desktop, enter ps session to the iotcore device, password is `p@ssw0rd`
-```powershell
-Enter-PSSession -ComputerName <IP address> -Credential <same IP address>\Administrator
-```
+   ```powershell
+   Enter-PSSession -ComputerName <IP address> -Credential <same IP address>\Administrator
+   ```
 
 2. The **Deploy-IoTEdge** command checks that your Windows machine is on a supported version, turns on the containers feature, downloads the moby runtime, and then downloads the IoT Edge runtime.
 
