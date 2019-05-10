@@ -112,7 +112,7 @@ After the edge device has been created, by default it points to mcr.microsoft.co
 * edgeshared.azurecr.io/microsoft/azureiotedge-diagnostics:20190508.3-windows-arm32v7
 * edgeshared.azurecr.io/microsoft/azureiotedge-simulated-temperature-sensor:20190508.3-windows-arm32v7
 
-1. Go to portal, navigate to the device details, click Set Modules
+1. Go to IoT hub portal, find the device you just created, navigate to the device details, click Set Modules
    ![Open Set modules from device details page](./media/quickstart/devicedetail.png)
    
 2. In the set modules page, type in the user name, password and server for the preview registry (edgeshared). Click the image to see its original content.
