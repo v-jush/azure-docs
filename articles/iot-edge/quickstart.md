@@ -119,10 +119,10 @@ Use below credentials to log in the preview container registry to access these p
 3. In the set modules page, type in the user name, password and server for the preview registry (edgeshared). Click the image to see its original content.
    ![set up credentials to pull images from edgeshared.azurecr.io](./media/quickstart/setmodules-cred.png)
    
-4. Click on "Configure Advanced Edge Runtime Settings", and set up the edgeAgent and edgeHub to the preview modules accordingly. Click Save button to save the changes, then click "Next" button to move to second step to specify routes.
+4. Click on "Configure Advanced Edge Runtime Settings", and set up the edgeHub and edgeAgent to the preview modules accordingly. Click Save button to save the changes, then click "Next" button to move to second step to specify routes.
 
-   `edgeshared.azurecr.io/microsoft/azureiotedge-agent:20190508.3-windows-arm32v7`
    `edgeshared.azurecr.io/microsoft/azureiotedge-hub:20190508.3-windows-arm32v7`
+   `edgeshared.azurecr.io/microsoft/azureiotedge-agent:20190508.3-windows-arm32v7`
    ![use preview agent and hub modules](./media/quickstart/advanced.png)
    
 5. Update the routes as needed, this step is optional. Click Next to step 3 "Review Deployment"
