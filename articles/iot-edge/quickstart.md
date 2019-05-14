@@ -91,12 +91,18 @@ Since IoT Edge devices behave and can be managed differently than typical IoT de
 ## Set Modules for IoTCore ARM32 Preview on the Portal
 After the edge device has been created, by default it points to mcr.microsoft.com/azureiotedge-hub:1.0 to pull both the agent and the hub modules. Since Windows ARM32 is still not public yet, there is no modules for Windows ARM32 from mcr, so we need to set it to pull from the preview registry.
 
-4 preview modules have been provided for the Windows IoTCore ARM32 preview, use username `d3e6e3bc-2e38-4887-9073-2cf796462b15` and password `71181f94-a9b9-4b98-96a8-01c4ae8dff94` to log into the container registry `edgeshared.azurecr.io`
+4 preview modules have been provided for the Windows IoTCore ARM32 preview
 
-* edgeshared.azurecr.io/microsoft/azureiotedge-agent:20190508.3-windows-arm32v7
-* edgeshared.azurecr.io/microsoft/azureiotedge-hub:20190508.3-windows-arm32v7
-* edgeshared.azurecr.io/microsoft/azureiotedge-diagnostics:20190508.3-windows-arm32v7
-* edgeshared.azurecr.io/microsoft/azureiotedge-simulated-temperature-sensor:20190508.3-windows-arm32v7
+* `edgeshared.azurecr.io/microsoft/azureiotedge-agent:20190508.3-windows-arm32v7`
+* `edgeshared.azurecr.io/microsoft/azureiotedge-hub:20190508.3-windows-arm32v7`
+* `edgeshared.azurecr.io/microsoft/azureiotedge-diagnostics:20190508.3-windows-arm32v7`
+* `edgeshared.azurecr.io/microsoft/azureiotedge-simulated-temperature-sensor:20190508.3-windows-arm32v7`
+
+Use below credentials to log in the preview container registry to access these preview modules,
+* Name: `EdgeShared`
+* Address: `edgeshared.azurecr.io`
+* User name: `d3e6e3bc-2e38-4887-9073-2cf796462b15`
+* Password: `71181f94-a9b9-4b98-96a8-01c4ae8dff94`
 
 1. Go to your IoT Hub portal, click on IoT Edge, it'll list all your IoT Edge devices, find the one you just created, click on it to open its details.
    ![Locate and open IoT Edge device](./media/quickstart/opendevice.png)
@@ -115,9 +121,8 @@ After the edge device has been created, by default it points to mcr.microsoft.co
    
 4. Click on "Configure Advanced Edge Runtime Settings", and set up the edgeAgent and edgeHub to the preview modules accordingly. Click Save button to save the changes, then click "Next" button to move to second step to specify routes.
 
-edgeshared.azurecr.io/microsoft/azureiotedge-agent:20190508.3-windows-arm32v7
-edgeshared.azurecr.io/microsoft/azureiotedge-hub:20190508.3-windows-arm32v7
-
+   `edgeshared.azurecr.io/microsoft/azureiotedge-agent:20190508.3-windows-arm32v7`
+   `edgeshared.azurecr.io/microsoft/azureiotedge-hub:20190508.3-windows-arm32v7`
    ![use preview agent and hub modules](./media/quickstart/advanced.png)
    
 5. Update the routes as needed, this step is optional. Click Next to step 3 "Review Deployment"
