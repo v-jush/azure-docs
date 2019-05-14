@@ -104,13 +104,21 @@ After the edge device has been created, by default it points to mcr.microsoft.co
 2. In the set modules page, type in the user name, password and server for the preview registry (edgeshared). Click the image to see its original content.
    ![set up credentials to pull images from edgeshared.azurecr.io](./media/quickstart/setmodules-cred.png)
    
-3. Click on "Configure Advanced Edge Runtime Settings", and set up the edgeAgent and edgeHub to the preview modules accordingly. Click the image to see its original content.
+3. Click on "Configure Advanced Edge Runtime Settings", and set up the edgeAgent and edgeHub to the preview modules accordingly. Click Save button to save the changes, then click "Next" button to move to second step to specify routes.
 
 edgeshared.azurecr.io/microsoft/azureiotedge-agent:20190508.3-windows-arm32v7
 edgeshared.azurecr.io/microsoft/azureiotedge-hub:20190508.3-windows-arm32v7
 
    ![use preview agent and hub modules](./media/quickstart/advanced.png)
+   
+4. Update the routes as needed, this step is optional. Click Next to step 3 "Review Deployment"
 
+   ![specify routes](./media/quickstart/SpecifyRoutes.png)
+
+5. Review the deployment, click Save button to save deployment.
+
+   ![review and save](./media/quickstart/ReviewSubmit.png)
+   
 ## Install and start the IoT Edge runtime
 
 Install the Azure IoT Edge runtime on your IoT Edge device and configure it with a device connection string.
@@ -196,6 +204,8 @@ Manage your Azure IoT Edge device from the cloud to deploy a module that sends t
 This module is in the marketplace and can be downaloded and installed following this document, [iot-edge-deploy-module](../../includes/iot-edge-deploy-module.md). However for Windows ARM32 preview, the module is not available in the marketplace, so you need to manually install it and point to the preview registry edgeshared.azurecr.io/microsoft/azureiotedge-simulated-temperature-sensor:20190508.3-windows-arm32v7
 
 ![Manually add the preview temperature sensor module](./media/quickstart/tempsensor.png)
+
+Similar to edgeAgent and edgeHub, once the module path is set, click Save button to save the module setting,  click Next to step 2 "Specify Routes", click Next again to step 3 "Review Depployment", then click "Save" button to save the deployment. Edge agent should pick up this and start to download the module momentarily.
 
 ## View generated data
 
