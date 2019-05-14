@@ -98,24 +98,33 @@ After the edge device has been created, by default it points to mcr.microsoft.co
 * edgeshared.azurecr.io/microsoft/azureiotedge-diagnostics:20190508.3-windows-arm32v7
 * edgeshared.azurecr.io/microsoft/azureiotedge-simulated-temperature-sensor:20190508.3-windows-arm32v7
 
-1. Go to IoT hub portal, find the device you just created, navigate to the device details, click Set Modules
+1. Go to your IoT Hub portal, click on IoT Edge, it'll list all your IoT Edge devices, find the one you just created, click on it to open its details.
+   ![Locate and open IoT Edge device](./media/quickstart/opendevice.png)
+   
+   >[!TIP]
+   > You can also create new IoT Edge devices on the portal
+
+   >[!TIP]
+   > When creating the device in azure cloud shell, this argument "--edge-enabled" tells the hub the new device is IoT Edge, so the device can be found in "IoT Edge", if this argument was not used, the device will be listed under "IoT Devices" instead.
+   
+2. Click Set Modules to set up modules for the device
    ![Open Set modules from device details page](./media/quickstart/devicedetail.png)
    
-2. In the set modules page, type in the user name, password and server for the preview registry (edgeshared). Click the image to see its original content.
+3. In the set modules page, type in the user name, password and server for the preview registry (edgeshared). Click the image to see its original content.
    ![set up credentials to pull images from edgeshared.azurecr.io](./media/quickstart/setmodules-cred.png)
    
-3. Click on "Configure Advanced Edge Runtime Settings", and set up the edgeAgent and edgeHub to the preview modules accordingly. Click Save button to save the changes, then click "Next" button to move to second step to specify routes.
+4. Click on "Configure Advanced Edge Runtime Settings", and set up the edgeAgent and edgeHub to the preview modules accordingly. Click Save button to save the changes, then click "Next" button to move to second step to specify routes.
 
 edgeshared.azurecr.io/microsoft/azureiotedge-agent:20190508.3-windows-arm32v7
 edgeshared.azurecr.io/microsoft/azureiotedge-hub:20190508.3-windows-arm32v7
 
    ![use preview agent and hub modules](./media/quickstart/advanced.png)
    
-4. Update the routes as needed, this step is optional. Click Next to step 3 "Review Deployment"
+5. Update the routes as needed, this step is optional. Click Next to step 3 "Review Deployment"
 
    ![specify routes](./media/quickstart/SpecifyRoutes.png)
 
-5. Review the deployment, click Save button to save deployment.
+6. Review the deployment, click Submit button to submit the changes.
 
    ![review and save](./media/quickstart/ReviewSubmit.png)
    
